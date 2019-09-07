@@ -4,5 +4,5 @@ import flow.com.ar.recruiter.model.Candidate
 import org.springframework.data.repository.CrudRepository
 
 interface CandidateRepository : CrudRepository<Candidate, Long> {
-    fun findByName(name: String): Candidate?
+    fun findByEmail(name: String): Candidate?
 }

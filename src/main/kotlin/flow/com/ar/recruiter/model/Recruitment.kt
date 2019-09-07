@@ -9,11 +9,17 @@ class Recruitment (
     var description: String,
     @OneToMany
     @JoinColumn(name = "recruitment_id")
-    var appointments: List<Appointment>,
+    var appointments: MutableList<Appointment>,
+    @ManyToMany
+    @JoinColumn(name = "recruitment_id")
+    var candidates: MutableList<Candidate>,
+    @OneToOne
+    var form: FormTemplate,
     @OneToMany
     @JoinColumn(name = "recruitment_id")
-    var candidates: List<Candidate>,
+    var responses: MutableList<FormResponse>
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
-)
+}
