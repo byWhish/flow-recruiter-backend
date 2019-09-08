@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired
 
 class RecruitmentService {
     @Autowired
-    var repository: RecruitmentRepository? = null
+    lateinit var repository: RecruitmentRepository
 
     fun getRecruitment(id: Long): Recruitment? {
-        return this.repository?.findById(id)?.orElse(null)
+        return this.repository.findById(id)?.orElse(null)
     }
 }

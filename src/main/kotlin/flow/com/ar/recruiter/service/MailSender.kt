@@ -14,7 +14,7 @@ import javax.mail.MessagingException
 class EmailSender {
 
         @Autowired
-        private val sender: JavaMailSender? = null
+        private lateinit var sender: JavaMailSender
 
         @Value("\${mail.enabled}")
         private val mailSendingEnabled: Boolean? = null
@@ -26,7 +26,7 @@ class EmailSender {
                 val scheduler = Executors.newScheduledThreadPool(1)
 
                 val task = {
-                    val message = sender!!.createMimeMessage()
+                    val message = sender.createMimeMessage()
                     val helper = MimeMessageHelper(message)
 
                     try {

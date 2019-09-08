@@ -11,7 +11,7 @@ import org.thymeleaf.context.Context;
 class MailContentBuilder {
 
     @Autowired
-    val templateEngine: TemplateEngine? = null
+    lateinit var templateEngine: TemplateEngine
 
     @Value("\${mail.baseurl}")
     val baseurl: String? = null
@@ -21,7 +21,7 @@ class MailContentBuilder {
         val urlquery = NanoIdUtils.randomNanoId();
         context.setVariable("message", message)
         context.setVariable("link", "$baseurl$urlquery")
-        return templateEngine!!.process("recruitment", context)
+        return templateEngine.process("recruitment", context)
     }
 
 }

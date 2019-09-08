@@ -4,27 +4,25 @@ import flow.com.ar.recruiter.odt.SummonRequest
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.lang.Exception
-import java.util.logging.Logger
 
 @Service
 class SummonService {
 
     @Autowired
-    var emailSender : EmailSender? = null
+    lateinit var emailSender: EmailSender
 
     @Autowired
-    val mailContentBuilder: MailContentBuilder? = null
+    lateinit var mailContentBuilder: MailContentBuilder
 
-    fun summonCandidates(summonRequest: SummonRequest){
+    fun summonCandidates(summonRequest: SummonRequest) {
         LOGGER.info("Summon candidates")
-        val message: String = mailContentBuilder!!.build("test")
-        summonRequest.emails.forEach{ mail ->
-                try {
-                    emailSender?.sendmail(mail, "test", message)
-                } catch (error: Exception) {
-
-                }
+        val message: String = mailContentBuilder.build("test")
+        summonRequest.emails.forEach { mail ->
+            try {
+                emailSender.sendmail(mail, "test", message)
+            } catch (error: Exception) {
+                LOGGER.error("No fue posible enviar el mail $mail")
+            }
         }
     }
 

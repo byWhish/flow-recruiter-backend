@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 class Mail {
 
     @Autowired
-    var summonService : SummonService? = null
+    lateinit var summonService : SummonService
 
     @PostMapping("/summon")
     fun sendMails(@RequestBody summonRequest: SummonRequest ) : String {
-        summonService?.summonCandidates(summonRequest)
+        summonService.summonCandidates(summonRequest)
         return "Ok"
     }
 }
