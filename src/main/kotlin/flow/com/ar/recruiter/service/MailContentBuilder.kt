@@ -6,13 +6,15 @@ import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context;
 
 @Service
-class MailContentBuilder @Autowired
-constructor(private val templateEngine: TemplateEngine) {
+class MailContentBuilder {
+
+    @Autowired
+    val templateEngine: TemplateEngine? = null
 
     fun build(message: String): String {
         val context = Context()
         context.setVariable("message", message)
-        return templateEngine.process("mailTemplate", context)
+        return templateEngine!!.process("recruitment", context)
     }
 
 }

@@ -6,7 +6,8 @@ import javax.persistence.*
 class FormTemplate(
         @OneToMany
         var questions: MutableList<FormQuestion>
-){
+)
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null

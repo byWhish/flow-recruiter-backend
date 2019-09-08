@@ -16,6 +16,7 @@ class Mail {
 
     @PostMapping("/summon")
     fun sendMails(@RequestBody summonRequest: SummonRequest ) : String {
+        summonService?.summonCandidates(summonRequest)
         return "Ok"
     }
 }
