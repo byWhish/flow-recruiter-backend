@@ -5,14 +5,15 @@ import javax.persistence.*
 
 @Entity
 class Appointment (
-    var schedule: LocalDateTime,
+    val schedule: LocalDateTime,
     @OneToOne
     @JoinColumn(name="candidate_id")
-    var candidate: Candidate,
-    @OneToOne
-    @JoinColumn(name="recruitment_id")
-    var recruitment: Recruitment,
+    val candidate: Candidate,
+    val confirmationLink: String
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
-)
+    var confirmed = false
+    var visited = false
+}

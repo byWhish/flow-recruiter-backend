@@ -1,6 +1,5 @@
 package flow.com.ar.recruiter.model
 
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -14,12 +13,14 @@ class Recruitment (
     @JoinColumn(name = "recruitment_id")
     var candidates: MutableList<Candidate>,
     @OneToOne
-    var form: FormTemplate,
+    var form: FormTemplate
+) {
     @OneToMany
     @JoinColumn(name = "recruitment_id")
-    var responses: MutableList<FormResponse>
-) {
+    var responses = mutableListOf<FormResponse>()
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
+//    val invitationMail  = null
+//    val formMail = null
 }

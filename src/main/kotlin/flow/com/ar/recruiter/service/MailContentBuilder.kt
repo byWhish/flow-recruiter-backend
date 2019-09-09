@@ -16,9 +16,8 @@ class MailContentBuilder {
     @Value("\${mail.baseurl}")
     val baseurl: String? = null
 
-    fun build(message: String): String {
+    fun build(message: String, urlquery: String): String {
         val context = Context()
-        val urlquery = NanoIdUtils.randomNanoId();
         context.setVariable("message", message)
         context.setVariable("link", "$baseurl$urlquery")
         return templateEngine.process("recruitment", context)
