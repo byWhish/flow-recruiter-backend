@@ -1,9 +1,8 @@
 package flow.com.ar.recruiter.persistence
 
-import flow.com.ar.recruiter.model.Appointment
+import flow.com.ar.recruiter.model.FormInvitation
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface AppointmentRepository: CrudRepository<Appointment, Long> {
-}
+interface FormInvitationRepository: CrudRepository<FormInvitation, Long> {}

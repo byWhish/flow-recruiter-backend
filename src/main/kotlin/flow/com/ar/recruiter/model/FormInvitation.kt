@@ -4,7 +4,6 @@ import javax.persistence.*
 
 @Entity
 class FormInvitation (
-        val formId: Long,
         val formLink: String,
         @OneToOne
         @JoinColumn(name="candidate_id")
