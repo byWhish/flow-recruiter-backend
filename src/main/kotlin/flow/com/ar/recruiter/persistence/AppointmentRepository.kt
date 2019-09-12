@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface AppointmentRepository: CrudRepository<Appointment, Long> {
+    fun findByconfirmationLink(id: String): Appointment
 }

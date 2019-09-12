@@ -30,7 +30,7 @@ class SummonService {
         summonRequest.candidates.forEach { candidate ->
             try {
                 val urlquery = NanoIdUtils.randomNanoId();
-                val message: String = mailContentBuilder.build("Completar formulareio", urlquery)
+                val message: String = mailContentBuilder.build("Completar formulario", "/form/?id=$urlquery")
                 emailSender.sendmail(candidate.email, "test", message)
                 var invitation = FormInvitation(urlquery, candidate)
                 this.formInvitationService.save(invitation)
@@ -45,7 +45,7 @@ class SummonService {
         summonRequest.candidates.forEach { candidate ->
             try {
                 val urlquery = NanoIdUtils.randomNanoId();
-                val message: String = mailContentBuilder.build("Confirmar asistencia", urlquery)
+                val message: String = mailContentBuilder.build("Confirmar asistencia", "/confirm/?id=$urlquery")
                 emailSender.sendmail(candidate.email, "test", message)
                 var appointment = Appointment(LocalDateTime.now(), candidate, urlquery)
                 this.appointmentService.save(appointment)

@@ -14,4 +14,14 @@ class AppointmentService {
     fun save(appointment: Appointment): Unit {
         this.appointmentRepository.save(appointment)
     }
+
+    fun findAll(): List<Appointment> {
+        return this.appointmentRepository.findAll().toMutableList()
+    }
+
+    fun confirmAppointment(id: String) {
+        val appointment = this.appointmentRepository.findByconfirmationLink(id)
+        appointment.confirmed = true
+        this.appointmentRepository.save(appointment)
+    }
 }
