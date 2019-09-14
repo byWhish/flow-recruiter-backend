@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface FormInvitationRepository: CrudRepository<FormInvitation, Long> {}
+interface FormInvitationRepository: CrudRepository<FormInvitation, Long> {
+    fun findByFormLink(formLink: String): FormInvitation
+}

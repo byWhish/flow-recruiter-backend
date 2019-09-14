@@ -1,10 +1,9 @@
 package flow.com.ar.recruiter.persistence
 
-import flow.com.ar.recruiter.model.Candidate
+import flow.com.ar.recruiter.model.FormTemplate
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface CandidateRepository : CrudRepository<Candidate, Long> {
-    fun findByEmail(email: String): Candidate?
+interface FormTemplateRepository: CrudRepository<FormTemplate, Long> {
 }
