@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("api/private/candidate")
 
-class CadidateRest {
+class CandidateRest {
 
     @Autowired
     lateinit var candidateService: CandidateService
