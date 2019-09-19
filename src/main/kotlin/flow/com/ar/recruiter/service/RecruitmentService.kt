@@ -13,4 +13,13 @@ class RecruitmentService {
     fun getRecruitment(id: Long): Recruitment? {
         return this.repository.findById(id)?.orElse(null)
     }
+
+    fun postRecruitment(recruitment: Recruitment): String {
+        repository.save(recruitment)
+        return "Ok"
+    }
+
+    fun getRecruitment(): List<Recruitment> {
+        return repository.findAll().toMutableList()
+    }
 }

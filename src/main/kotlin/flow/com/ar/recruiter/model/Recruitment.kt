@@ -6,10 +6,14 @@ import javax.persistence.*
 class Recruitment (
     var name: String,
     var description: String,
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "recruitment_id")
+    var schedules: MutableList<Schedule>
+
+) {
     @ManyToMany
     @JoinColumn(name = "recruitment_id")
-    var candidates: MutableList<Candidate>
-) {
+    var candidates = mutableListOf<Candidate>()
     @OneToMany
     @JoinColumn(name = "recruitment_id")
     var appointments = mutableListOf<Appointment>()
