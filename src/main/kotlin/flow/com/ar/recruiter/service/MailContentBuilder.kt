@@ -19,6 +19,8 @@ class MailContentBuilder {
     fun build(message: String, urlquery: String): String {
         val context = Context()
         context.setVariable("message", message)
+//        context.setVariable("title", title)
+//        context.setVariable("label", "label")
         context.setVariable("link", "$baseurl$urlquery")
         return templateEngine.process("recruitment", context)
     }

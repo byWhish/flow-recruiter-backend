@@ -14,9 +14,9 @@ class RecruitmentService {
         return this.repository.findById(id)?.orElse(null)
     }
 
-    fun postRecruitment(recruitment: Recruitment): String {
+    fun postRecruitment(recruitment: Recruitment): Long {
         repository.save(recruitment)
-        return "Ok"
+        return recruitment.id!!
     }
 
     fun getRecruitment(): List<Recruitment> {

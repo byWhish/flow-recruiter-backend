@@ -1,5 +1,6 @@
 package flow.com.ar.recruiter.model
 
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -23,8 +24,11 @@ class Recruitment (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
+    val timestamp = LocalDateTime.now()
     @OneToOne
     var form: FormTemplate? = null
-//    val invitationMail  = null
-//    val formMail = null
+    @OneToOne
+    val invitationMail: Email?  = null
+    @OneToOne
+    val formMail: Email? = null
 }

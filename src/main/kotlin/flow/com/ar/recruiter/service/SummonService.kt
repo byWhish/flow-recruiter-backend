@@ -25,10 +25,14 @@ class SummonService {
     @Autowired
     lateinit var appointmentService: AppointmentService
 
+    @Autowired
+    lateinit var recruitmentService: RecruitmentService
+
     fun inviteCandidates(summonRequest: SummonRequest) {
         LOGGER.info("Inviting candidates")
         summonRequest.candidates.forEach { candidate ->
             try {
+                val recruitment = recruitmentService.getRecruitment(summonRequest.recruitmentId);
                 val urlquery = NanoIdUtils.randomNanoId();
                 val message: String = mailContentBuilder.build("Completar formulario", "/form/?id=$urlquery")
                 emailSender.sendmail(candidate.email, "test", message)

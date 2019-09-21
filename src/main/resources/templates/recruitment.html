@@ -3,9 +3,12 @@
 <head>
 </head>
 <body>
-    <div style="background-color:white;">
-        <span style="color:black;" th:text="${message}"></span>
-        <a th:href="${link}" th:text="${link}"></a>
+    <div style="background-color:white;width:100%;">
+        <div style="width:400px;">
+            <span style="color:black;" th:text="${title}"></span>
+            <span style="color:black;" th:text="${message}"></span>
+            <a th:href="${link}" th:text="${label}"></a>
+        </div>
     </div>
 </body>
 </html>

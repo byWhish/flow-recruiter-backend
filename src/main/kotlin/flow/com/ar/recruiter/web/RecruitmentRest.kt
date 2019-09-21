@@ -13,7 +13,7 @@ class RecruitmentRest {
     lateinit var recruitmentService: RecruitmentService
 
     @PostMapping("/add")
-    fun add(@RequestBody recruitment: Recruitment): String {
+    fun add(@RequestBody recruitment: Recruitment): Long {
         return recruitmentService.postRecruitment(recruitment)
     }
 
