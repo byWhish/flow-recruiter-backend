@@ -2,9 +2,9 @@ package flow.com.ar.recruiter.service
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import flow.com.ar.recruiter.model.Appointment
+import flow.com.ar.recruiter.model.Candidate
 import flow.com.ar.recruiter.model.FormInvitation
 import flow.com.ar.recruiter.odt.SummonRequest
-import flow.com.ar.recruiter.persistence.AppointmentRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -28,14 +28,15 @@ class SummonService {
     @Autowired
     lateinit var recruitmentService: RecruitmentService
 
-    fun inviteCandidates(summonRequest: SummonRequest) {
+    fun inviteCandidates(candidates: List<Candidate>, recruitmentId: Long) {
         LOGGER.info("Inviting candidates")
-        summonRequest.candidates.forEach { candidate ->
+        candidates.forEach { candidate ->
             try {
-                val recruitment = recruitmentService.getRecruitment(summonRequest.recruitmentId);
+                val recruitment = recruitmentService.getRecruitment(recruitmentId)!!;
                 val urlquery = NanoIdUtils.randomNanoId();
-                val message: String = mailContentBuilder.build("Completar formulario", "/form/?id=$urlquery")
-                emailSender.sendmail(candidate.email, "test", message)
+                val message: String = mailContentBuilder.build(recruitment.formMail!!, "/form/?id=$urlquery")
+                LOGGER.info("Hola como va ?")
+                emailSender.sendmail(candidate.email, "Invite", message)
                 var invitation = FormInvitation(urlquery, candidate)
                 this.formInvitationService.save(invitation)
             } catch (error: Exception) {
@@ -44,13 +45,14 @@ class SummonService {
         }
     }
 
-    fun summonCandidates(summonRequest: SummonRequest) {
+    fun summonCandidates(candidates: List<Candidate>, recruitmentId: Long) {
         LOGGER.info("Summoninig candidates")
-        summonRequest.candidates.forEach { candidate ->
+        candidates.forEach { candidate ->
             try {
+                val recruitment = recruitmentService.getRecruitment(recruitmentId)!!;
                 val urlquery = NanoIdUtils.randomNanoId();
-                val message: String = mailContentBuilder.build("Confirmar asistencia", "/confirm/?id=$urlquery")
-                emailSender.sendmail(candidate.email, "test", message)
+                val message: String = mailContentBuilder.build(recruitment.invitationMail!!, "/confirm/?id=$urlquery")
+                emailSender.sendmail(candidate.email, "Summoning", message)
                 var appointment = Appointment(LocalDateTime.now(), candidate, urlquery)
                 this.appointmentService.save(appointment)
             } catch (error: Exception) {

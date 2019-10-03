@@ -3,11 +3,11 @@
 <head>
 </head>
 <body>
-    <div style="background-color:white;width:100%;">
-        <div style="width:400px;">
-            <span style="color:black;" th:text="${title}"></span>
-            <span style="color:black;" th:text="${message}"></span>
-            <a th:href="${link}" th:text="${label}"></a>
+    <div style="width:100%;text-align:center;font-family:Arial;">
+        <div style="background-color:black;width:400px;padding:10px;margin:auto">
+            <h2 style="color:#57dfb7;" th:text="${title}"></h2>
+            <span style="color:white;overflow-wrap:break-word;word-break:break-word" th:text="${message}"></span></p>
+            <a style="color:#57dfb7;" th:href="${link}" th:text="${label}"></a></p>
         </div>
     </div>
 </body>

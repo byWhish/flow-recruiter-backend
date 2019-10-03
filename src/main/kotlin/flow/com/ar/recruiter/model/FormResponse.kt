@@ -5,9 +5,9 @@ import javax.persistence.*
 @Entity
 class FormResponse(
         @OneToOne
-        var form: FormTemplate,
+        val form: FormTemplate,
         @OneToOne
-        var candidate: Candidate
+        val candidate: Candidate
 ){
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,8 +4,9 @@ import javax.persistence.*
 
 @Entity
 class FormTemplate(
-        @OneToMany
-        var questions: MutableList<FormQuestion>
+        val title: String,
+        @OneToMany(cascade = [CascadeType.ALL])
+        var questions: MutableList<FormQuestion>?
 )
 {
     @Id

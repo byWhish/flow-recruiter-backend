@@ -25,10 +25,10 @@ class Recruitment (
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
     val timestamp = LocalDateTime.now()
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     var form: FormTemplate? = null
-    @OneToOne
-    val invitationMail: Email?  = null
-    @OneToOne
-    val formMail: Email? = null
+    @OneToOne(cascade = [CascadeType.ALL])
+    var invitationMail: Email?  = null
+    @OneToOne(cascade = [CascadeType.ALL])
+    var formMail: Email? = null
 }

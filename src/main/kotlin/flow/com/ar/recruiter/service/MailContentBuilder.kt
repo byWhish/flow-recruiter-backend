@@ -1,6 +1,7 @@
 package flow.com.ar.recruiter.service
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
+import flow.com.ar.recruiter.model.Email
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -16,11 +17,11 @@ class MailContentBuilder {
     @Value("\${mail.baseurl}")
     val baseurl: String? = null
 
-    fun build(message: String, urlquery: String): String {
+    fun build(email: Email, urlquery: String): String {
         val context = Context()
-        context.setVariable("message", message)
-//        context.setVariable("title", title)
-//        context.setVariable("label", "label")
+        context.setVariable("message", email.message)
+        context.setVariable("title", email.title)
+        context.setVariable("label", email.label)
         context.setVariable("link", "$baseurl$urlquery")
         return templateEngine.process("recruitment", context)
     }
