@@ -17,20 +17,20 @@ class RecruitmentService {
         return this.repository.findById(id)?.orElse(null)
     }
 
-    fun postRecruitment(recruitment: Recruitment): Long {
+    fun postRecruitment(recruitment: Recruitment): Recruitment {
         repository.save(recruitment)
-        return recruitment.id!!
+        return recruitment
     }
 
     fun getRecruitment(): List<Recruitment> {
         return repository.findAll().toMutableList()
     }
 
-    fun addForm(formRequest: FormTemplateRequest, recruitmentId: Long): String {
+    fun addForm(formRequest: FormTemplateRequest, recruitmentId: Long): Recruitment {
         val recruitment : Recruitment = repository.findById(recruitmentId).orElse(null)
         recruitment.form = generateFormFromRequest(formRequest)
         repository.save(recruitment)
-        return "Ok"
+        return recruitment
     }
 
     private fun generateFormFromRequest(form: FormTemplateRequest): FormTemplate {
@@ -50,7 +50,7 @@ class RecruitmentService {
         }.toMutableList()
     }
 
-    fun addMail(email: Email, type: String, recruitmentId: Long): String {
+    fun addMail(email: Email, type: String, recruitmentId: Long): Recruitment {
         val recruitment: Recruitment = repository.findById(recruitmentId).orElse(null)
         when(type){
             "invite" -> recruitment.invitationMail = email
@@ -58,6 +58,6 @@ class RecruitmentService {
             else -> false
         }
         repository.save(recruitment)
-        return "Ok"
+        return recruitment
     }
 }

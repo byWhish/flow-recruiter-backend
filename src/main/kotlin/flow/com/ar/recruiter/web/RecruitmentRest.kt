@@ -15,7 +15,7 @@ class RecruitmentRest {
     lateinit var recruitmentService: RecruitmentService
 
     @PostMapping("/add")
-    fun add(@RequestBody recruitment: Recruitment): Long {
+    fun add(@RequestBody recruitment: Recruitment): Recruitment {
         return recruitmentService.postRecruitment(recruitment)
     }
 
@@ -25,12 +25,12 @@ class RecruitmentRest {
     }
 
     @PostMapping("/form/{recruitmentId}")
-    fun addForm(@RequestBody formRequest: FormTemplateRequest, @PathVariable recruitmentId: Long): String {
+    fun addForm(@RequestBody formRequest: FormTemplateRequest, @PathVariable recruitmentId: Long): Recruitment {
         return recruitmentService.addForm(formRequest, recruitmentId)
     }
 
     @PostMapping("/mail/{recruitmentId}/{type}")
-    fun addMail(@RequestBody email: Email, @PathVariable type: String, @PathVariable recruitmentId: Long): String {
+    fun addMail(@RequestBody email: Email, @PathVariable type: String, @PathVariable recruitmentId: Long): Recruitment {
         return recruitmentService.addMail(email, type, recruitmentId)
     }
 }
