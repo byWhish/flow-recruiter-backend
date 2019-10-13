@@ -22,7 +22,7 @@ class RecruitmentService {
         return recruitment
     }
 
-    fun getRecruitment(): List<Recruitment> {
+    fun getAllRecruitment(): List<Recruitment> {
         return repository.findAll().toMutableList()
     }
 

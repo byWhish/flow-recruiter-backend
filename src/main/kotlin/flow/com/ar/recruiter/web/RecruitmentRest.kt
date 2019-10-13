@@ -19,9 +19,14 @@ class RecruitmentRest {
         return recruitmentService.postRecruitment(recruitment)
     }
 
+    @GetMapping("/{recruitmentId}")
+    fun getSingle(@PathVariable recruitmentId: Long): Recruitment? {
+        return recruitmentService.getRecruitment(recruitmentId)
+    }
+
     @GetMapping("/all")
     fun all(): List<Recruitment> {
-        return recruitmentService.getRecruitment()
+        return recruitmentService.getAllRecruitment()
     }
 
     @PostMapping("/form/{recruitmentId}")
