@@ -13,10 +13,6 @@ class FormInvitationService {
     @Autowired
     lateinit var formInvitationRepository: FormInvitationRepository
 
-    fun save(formInvitation: FormInvitation) {
-        this.formInvitationRepository.save(formInvitation)
-    }
-
     fun findAll(): List<FormInvitation> {
         return this.formInvitationRepository.findAll().toMutableList()
     }
@@ -33,5 +29,10 @@ class FormInvitationService {
         form.visited = true
         this.formInvitationRepository.save(form)
         return "Ok"
+    }
+
+    fun getFormById(idForm: String): FormTemplate {
+        val formInvitation = this.formInvitationRepository.findByFormLink(idForm)
+        return formInvitation.form
     }
 }

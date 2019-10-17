@@ -31,4 +31,7 @@ class Recruitment (
     var invitationMail: Email?  = null
     @OneToOne(cascade = [CascadeType.ALL])
     var formMail: Email? = null
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "recruitment_id")
+    var invitations = mutableListOf<FormInvitation>()
 }

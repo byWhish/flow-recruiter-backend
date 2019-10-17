@@ -33,12 +33,14 @@ class SummonService {
         candidates.forEach { candidate ->
             try {
                 val recruitment = recruitmentService.getRecruitment(recruitmentId)!!;
+                val form = recruitment.form
                 val urlquery = NanoIdUtils.randomNanoId();
                 val message: String = mailContentBuilder.build(recruitment.formMail!!, "/form/?id=$urlquery")
-                LOGGER.info("Hola como va ?")
                 emailSender.sendmail(candidate.email, "Invite", message)
-                var invitation = FormInvitation(urlquery, candidate)
-                this.formInvitationService.save(invitation)
+                var invitation = FormInvitation(urlquery, candidate, form!!)
+                recruitment.invitations.add(invitation)
+                this.recruitmentService.postRecruitment(recruitment)
+                LOGGER.error("Mail enviado")
             } catch (error: Exception) {
                 LOGGER.error("No fue posible enviar el mail ${candidate.email}")
             }
@@ -54,7 +56,8 @@ class SummonService {
                 val message: String = mailContentBuilder.build(recruitment.invitationMail!!, "/confirm/?id=$urlquery")
                 emailSender.sendmail(candidate.email, "Summoning", message)
                 var appointment = Appointment(LocalDateTime.now(), candidate, urlquery)
-                this.appointmentService.save(appointment)
+                recruitment.appointments.add(appointment)
+                this.recruitmentService.postRecruitment(recruitment)
             } catch (error: Exception) {
                 LOGGER.error("No fue posible enviar el mail ${candidate.email}")
             }

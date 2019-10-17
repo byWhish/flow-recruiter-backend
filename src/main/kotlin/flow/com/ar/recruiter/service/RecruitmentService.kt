@@ -60,4 +60,9 @@ class RecruitmentService {
         repository.save(recruitment)
         return recruitment
     }
+
+    fun delete(recruitmentId: Long): List<Recruitment> {
+        repository.deleteById(recruitmentId)
+        return repository.findAll().toMutableList()
+    }
 }

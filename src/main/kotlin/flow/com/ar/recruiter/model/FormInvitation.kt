@@ -7,7 +7,9 @@ class FormInvitation (
         val formLink: String,
         @OneToOne
         @JoinColumn(name="candidate_id")
-        val candidate: Candidate
+        val candidate: Candidate,
+        @OneToOne
+        val form: FormTemplate
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

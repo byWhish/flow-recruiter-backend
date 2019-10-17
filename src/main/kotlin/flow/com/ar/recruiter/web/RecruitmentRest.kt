@@ -38,4 +38,9 @@ class RecruitmentRest {
     fun addMail(@RequestBody email: Email, @PathVariable type: String, @PathVariable recruitmentId: Long): Recruitment {
         return recruitmentService.addMail(email, type, recruitmentId)
     }
+
+    @DeleteMapping("/delete/{recruitmentId}")
+    fun delete(@PathVariable recruitmentId: Long): List<Recruitment> {
+        return recruitmentService.delete(recruitmentId)
+    }
 }
