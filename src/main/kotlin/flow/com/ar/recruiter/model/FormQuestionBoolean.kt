@@ -4,4 +4,4 @@ import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
 
 @Entity
-class FormQuestionBoolean(label: String) : FormQuestion(label) {}
+class FormQuestionBoolean(label: String, response: String?) : FormQuestion(label, response) {}

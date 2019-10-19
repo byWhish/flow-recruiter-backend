@@ -8,5 +8,7 @@ import javax.persistence.Entity
 class FormQuestionMultiple(
         label: String,
         @ElementCollection
-        var options: MutableList<String>?
-) : FormQuestion(label) {}
+        var options: MutableList<String>?,
+        response: String?
+
+) : FormQuestion(label, response){}

@@ -12,41 +12,35 @@ import org.springframework.stereotype.Service
 class FormInvitationService {
 
     @Autowired
-    lateinit var formInvitationRepository: FormInvitationRepository
+    lateinit var repository: FormInvitationRepository
 
     fun findAll(): List<FormInvitation> {
-        return this.formInvitationRepository.findAll().toMutableList()
+        return this.repository.findAll().toMutableList()
     }
 
     fun confirmForm(idLink: String): FormInvitation {
-        val formInvitation = this.formInvitationRepository.findByFormLink(idLink)
+        val formInvitation = this.repository.findByFormLink(idLink)
+        if (formInvitation.completed) throw Exception("Este formulario ya fue completado")
         formInvitation.visited = true
-        this.formInvitationRepository.save(formInvitation)
+        this.repository.save(formInvitation)
         return formInvitation
     }
 
     fun completed(response: FormResponse): String {
-        val formInvitation = this.formInvitationRepository.findByFormLink(response.idLink)
+        val formInvitation = this.repository.findByFormLink(response.idLink)
         formInvitation.form.questions = populateQuestions(response.questions)
         formInvitation.completed = true
-        this.formInvitationRepository.save(formInvitation)
+        this.repository.save(formInvitation)
         return "Ok"
     }
 
     private fun populateQuestions(questions: MutableList<QuestionRequest>): MutableList<FormQuestion> {
         return questions.map {
-            when(it.type) {
-                "single" -> FormQuestionSimple(it.question)
-                "multi" -> FormQuestionMultiple(it.question, it.options)
-                else -> FormQuestionSimple(it.question)
+            when (it.type) {
+                "single" -> FormQuestionSimple(it.question, it.response)
+                "multi" -> FormQuestionMultiple(it.question, it.options, it.response)
+                else -> FormQuestionSimple(it.question, it.response)
             }
         }.toMutableList()
     }
-
-//    fun getFormById(idForm: String): FormInvitation {
-//        val formInvitation = this.formInvitationRepository.findByFormLink(idForm)
-//        formInvitation.visited = true;
-//        this.formInvitationRepository.save(formInvitation)
-//        return formInvitation
-//    }
 }

@@ -43,9 +43,9 @@ class RecruitmentService {
     private fun populateQuestions(questions: MutableList<QuestionRequest>): MutableList<FormQuestion> {
         return questions.map {
             when(it.type) {
-                "single" -> FormQuestionSimple(it.question)
-                "multi" -> FormQuestionMultiple(it.question, it.options)
-                else -> FormQuestionSimple(it.question)
+                "single" -> FormQuestionSimple(it.question, it.response)
+                "multi" -> FormQuestionMultiple(it.question, it.options, it.response)
+                else -> FormQuestionSimple(it.question, it.response)
             }
         }.toMutableList()
     }
@@ -64,5 +64,10 @@ class RecruitmentService {
     fun delete(recruitmentId: Long): List<Recruitment> {
         repository.deleteById(recruitmentId)
         return repository.findAll().toMutableList()
+    }
+
+    fun getAllInterested(recruitmentId: Long): List<Candidate> {
+        val recruitment = this.getRecruitment(recruitmentId)
+        return recruitment!!.invitations.filter { formInvitation -> formInvitation.completed }.map { filtered -> filtered.candidate }
     }
 }

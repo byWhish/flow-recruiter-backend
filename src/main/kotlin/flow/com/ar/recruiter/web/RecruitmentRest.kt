@@ -1,11 +1,13 @@
 package flow.com.ar.recruiter.web
 
+import flow.com.ar.recruiter.model.Candidate
 import flow.com.ar.recruiter.model.Email
 import flow.com.ar.recruiter.model.Recruitment
 import flow.com.ar.recruiter.odt.FormTemplateRequest
 import flow.com.ar.recruiter.service.RecruitmentService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("api/private/project")
@@ -30,7 +32,7 @@ class RecruitmentRest {
     }
 
     @PostMapping("/form/{recruitmentId}")
-    fun addForm(@RequestBody formRequest: FormTemplateRequest, @PathVariable recruitmentId: Long): Recruitment {
+    fun addForm(@Valid @RequestBody formRequest: FormTemplateRequest, @PathVariable recruitmentId: Long): Recruitment {
         return recruitmentService.addForm(formRequest, recruitmentId)
     }
 
@@ -42,5 +44,10 @@ class RecruitmentRest {
     @DeleteMapping("/delete/{recruitmentId}")
     fun delete(@PathVariable recruitmentId: Long): List<Recruitment> {
         return recruitmentService.delete(recruitmentId)
+    }
+
+    @GetMapping("/interested/{recruitmentId}")
+    fun getAllInterested(@PathVariable recruitmentId: Long): List<Candidate> {
+        return recruitmentService.getAllInterested(recruitmentId)
     }
 }
