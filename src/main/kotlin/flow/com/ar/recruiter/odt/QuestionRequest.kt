@@ -4,5 +4,5 @@ data class QuestionRequest(
     val question: String,
     val options: MutableList<String>?,
     val response: String?,
-    val type: String
+    val type: String?
 )

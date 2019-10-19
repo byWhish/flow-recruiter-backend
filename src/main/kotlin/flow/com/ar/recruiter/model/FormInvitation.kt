@@ -5,10 +5,10 @@ import javax.persistence.*
 @Entity
 class FormInvitation (
         val formLink: String,
-        @OneToOne
+        @ManyToOne
         @JoinColumn(name="candidate_id")
         val candidate: Candidate,
-        @OneToOne
+        @OneToOne(cascade = [CascadeType.ALL])
         val form: FormTemplate
 ) {
     @Id
