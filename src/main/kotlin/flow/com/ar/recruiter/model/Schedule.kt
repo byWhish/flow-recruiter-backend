@@ -10,10 +10,13 @@ class Schedule(
         val date: Date,
         @ElementCollection
         val timeRange: MutableList<Int>,
-        val duration: Int
+        val init: Int,
+        val end: Int,
+        val duration: Int,
+        @OneToMany(cascade = [CascadeType.ALL])
+        val blocks: MutableList<ScheduleBlock>
 ){
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @JsonIgnore
         val id: Long? = null
 }

@@ -17,7 +17,7 @@ class RecruitmentRest {
     lateinit var recruitmentService: RecruitmentService
 
     @PostMapping("/add")
-    fun add(@RequestBody recruitment: Recruitment): Recruitment {
+    fun add(@Valid @RequestBody recruitment: Recruitment): Recruitment {
         return recruitmentService.postRecruitment(recruitment)
     }
 
@@ -37,7 +37,7 @@ class RecruitmentRest {
     }
 
     @PostMapping("/mail/{recruitmentId}/{type}")
-    fun addMail(@RequestBody email: Email, @PathVariable type: String, @PathVariable recruitmentId: Long): Recruitment {
+    fun addMail(@Valid @RequestBody email: Email, @PathVariable type: String, @PathVariable recruitmentId: Long): Recruitment {
         return recruitmentService.addMail(email, type, recruitmentId)
     }
 

@@ -1,12 +1,11 @@
 package flow.com.ar.recruiter.service
 
-import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import flow.com.ar.recruiter.model.Email
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
-import org.thymeleaf.context.Context;
+import org.thymeleaf.context.Context
 
 @Service
 class MailContentBuilder {

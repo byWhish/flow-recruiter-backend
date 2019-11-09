@@ -3,12 +3,11 @@ package flow.com.ar.recruiter.model
 import javax.persistence.*
 
 @Entity
-class FormTemplate(
-        val title: String,
-        @OneToMany(cascade = [CascadeType.ALL])
-        var questions: MutableList<FormQuestion>
-)
-{
+data class FormQuestionResponse(
+        @OneToOne
+        val question: FormQuestion,
+        val response: String
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null

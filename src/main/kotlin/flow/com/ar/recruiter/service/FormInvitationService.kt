@@ -1,12 +1,14 @@
 package flow.com.ar.recruiter.service
 
-import flow.com.ar.recruiter.model.*
+import flow.com.ar.recruiter.error.ExpiredLinkException
+import flow.com.ar.recruiter.model.FormInvitation
+import flow.com.ar.recruiter.model.FormQuestion
 import flow.com.ar.recruiter.odt.FormResponse
-import flow.com.ar.recruiter.odt.IdRequest
-import flow.com.ar.recruiter.odt.QuestionRequest
+import flow.com.ar.recruiter.odt.ResponseRequest
 import flow.com.ar.recruiter.persistence.FormInvitationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
 
 @Service
 class FormInvitationService {
@@ -20,7 +22,7 @@ class FormInvitationService {
 
     fun confirmForm(idLink: String): FormInvitation {
         val formInvitation = this.repository.findByFormLink(idLink)
-        if (formInvitation.completed) throw Exception("Este formulario ya fue completado")
+        if (formInvitation.completed) throw ExpiredLinkException("Este formulario ya fue completado")
         formInvitation.visited = true
         this.repository.save(formInvitation)
         return formInvitation
@@ -28,19 +30,13 @@ class FormInvitationService {
 
     fun completed(response: FormResponse): String {
         val formInvitation = this.repository.findByFormLink(response.idLink)
-        formInvitation.form.questions = populateQuestions(response.questions)
+        updateQuestions(formInvitation.form.questions!!, response.questions)
         formInvitation.completed = true
         this.repository.save(formInvitation)
         return "Ok"
     }
 
-    private fun populateQuestions(questions: MutableList<QuestionRequest>): MutableList<FormQuestion> {
-        return questions.map {
-            when (it.type) {
-                "single" -> FormQuestionSimple(it.question, it.response)
-                "multi" -> FormQuestionMultiple(it.question, it.options, it.response)
-                else -> FormQuestionSimple(it.question, it.response)
-            }
-        }.toMutableList()
+    fun updateQuestions(questions: MutableList<FormQuestion>, responses: List<ResponseRequest>) {
+        questions.forEach { question -> question.response = responses.find { it.id == question.id }!!.response }
     }
 }

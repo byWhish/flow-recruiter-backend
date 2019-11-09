@@ -4,6 +4,7 @@ import flow.com.ar.recruiter.model.Candidate
 import flow.com.ar.recruiter.service.CandidateService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("api/private/candidate")
@@ -14,7 +15,7 @@ class CandidateRest {
     lateinit var candidateService: CandidateService
 
     @PostMapping("/add")
-    fun add(@RequestBody candidate: Candidate): String {
+    fun add(@Valid @RequestBody candidate: Candidate): String {
         this.candidateService.save(candidate)
         return "Ok"
     }

@@ -10,5 +10,5 @@ data class FormResponse(
         @NotNull
         val idLink: String,
         @NotEmpty
-        val questions: MutableList<QuestionRequest>
+        val questions: MutableList<ResponseRequest>
 ) {}

@@ -43,9 +43,9 @@ class RecruitmentService {
     private fun populateQuestions(questions: MutableList<QuestionRequest>): MutableList<FormQuestion> {
         return questions.map {
             when(it.type) {
-                "single" -> FormQuestionSimple(it.question, it.response)
-                "multi" -> FormQuestionMultiple(it.question, it.options, it.response)
-                else -> FormQuestionSimple(it.question, it.response)
+                "single" -> FormQuestionSimple(it.question, it.position)
+                "multi" -> FormQuestionMultiple(it.question, it.position, it.options)
+                else -> FormQuestionSimple(it.question, it.position)
             }
         }.toMutableList()
     }
