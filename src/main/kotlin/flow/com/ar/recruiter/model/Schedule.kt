@@ -8,8 +8,6 @@ import javax.persistence.*
 @Entity
 class Schedule(
         val date: Date,
-        @ElementCollection
-        val timeRange: MutableList<Int>,
         val init: Int,
         val end: Int,
         val duration: Int,
