@@ -2,6 +2,7 @@ package flow.com.ar.recruiter.web
 
 import flow.com.ar.recruiter.model.Appointment
 import flow.com.ar.recruiter.model.ScheduleBlock
+import flow.com.ar.recruiter.odt.AppointmentResponse
 import flow.com.ar.recruiter.service.AppointmentService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -26,9 +27,8 @@ class AppointmentRest {
     }
 
     @GetMapping("/{idAppointment}")
-    fun confirm(@PathVariable idAppointment: String): Appointment {
+    fun confirm(@PathVariable idAppointment: String): AppointmentResponse {
         return this.appointmentService.confirmAppointment(idAppointment)
-
     }
 
     @PostMapping("/completed/{idAppointment}/{idSchedule}/{idBlock}")

@@ -57,10 +57,8 @@ class SummonService {
             try {
                 val urlquery = NanoIdUtils.randomNanoId();
                 val message: String = mailContentBuilder.build(recruitment.invitationMail!!, "/confirm/?id=$urlquery")
-                val schedules = recruitment.schedules.toMutableList()
                 emailSender.sendmail(candidate.email, "Summoning", message)
-                var appointment = Appointment(urlquery, LocalDateTime.now(), candidate, schedules)
-//                this.appointmentService.save(appointment)
+                var appointment = Appointment(urlquery, LocalDateTime.now(), candidate, recruitmentId)
                 recruitment.appointments.add(appointment)
                 this.recruitmentService.postRecruitment(recruitment)
             } catch (error: Exception) {

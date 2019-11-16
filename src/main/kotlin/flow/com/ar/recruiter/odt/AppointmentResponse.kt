@@ -1,9 +1,9 @@
 package flow.com.ar.recruiter.odt
 
-import flow.com.ar.recruiter.model.ScheduleBlock
+import flow.com.ar.recruiter.model.Schedule
 
 data class AppointmentResponse(
-        val id: String,
-        val block: ScheduleBlock
+        val appointmentId: Long,
+        val schedules: MutableList<Schedule>
         )
 {}

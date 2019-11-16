@@ -10,8 +10,7 @@ class Appointment (
     @OneToOne
     @JoinColumn(name="candidate_id")
     val candidate: Candidate,
-    @OneToMany
-    val schedules: MutableList<Schedule>
+    val parentId: Long
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
