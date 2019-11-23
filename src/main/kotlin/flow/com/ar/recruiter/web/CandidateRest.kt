@@ -1,6 +1,8 @@
 package flow.com.ar.recruiter.web
 
 import flow.com.ar.recruiter.model.Candidate
+import flow.com.ar.recruiter.model.FormQuestionResponse
+import flow.com.ar.recruiter.model.Recruitment
 import flow.com.ar.recruiter.service.CandidateService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -29,5 +31,10 @@ class CandidateRest {
     @GetMapping("/all")
     fun all(): List<Candidate> {
         return this.candidateService.findAll()
+    }
+
+    @GetMapping("/filtered")
+    fun filterCandidates(@RequestParam filters: List<String>, @RequestParam recruitmentId: Long?): List<Candidate> {
+        return candidateService.filteredCandidates(filters, recruitmentId)
     }
 }

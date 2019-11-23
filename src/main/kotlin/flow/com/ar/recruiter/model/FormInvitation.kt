@@ -8,12 +8,13 @@ class FormInvitation (
         @ManyToOne
         @JoinColumn(name="candidate_id")
         val candidate: Candidate,
-        @OneToOne(cascade = [CascadeType.ALL])
-        val form: FormTemplate
+        val parentId: Long
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
     var completed = false
     var visited = false
+    @OneToMany(cascade = [CascadeType.ALL])
+    var responses = mutableListOf<FormQuestionResponse>()
 }

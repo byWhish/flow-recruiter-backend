@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CandidateRepository : CrudRepository<Candidate, Long> {
     fun findByEmail(email: String): Candidate?
+    fun findByIdIn(filteredIds: List<Long>): List<Candidate>
 }

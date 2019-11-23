@@ -42,6 +42,7 @@ class AppointmentService {
         val recruitment : Recruitment = this.recruitmentRepository.findById(appointment.parentId).orElse(null)
         val schedule = recruitment.schedules.find { it.id == idSchedule }
         val block = schedule?.blocks?.find { it.id == idBlock }
+        block?.candidate = appointment.candidate
         block?.free = false
         appointment.scheduleBlock = schedule?.blocks?.find { it.id == idBlock }
         appointment.confirmed = true;

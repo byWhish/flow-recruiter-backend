@@ -4,6 +4,7 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import flow.com.ar.recruiter.model.Appointment
 import flow.com.ar.recruiter.model.Candidate
 import flow.com.ar.recruiter.model.FormInvitation
+import flow.com.ar.recruiter.model.Recruitment
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -30,17 +31,17 @@ class SummonService {
     @Autowired
     lateinit var formTemplateService: FormTemplateService
 
-    fun inviteCandidates(candidates: List<Candidate>, recruitmentId: Long) {
+    fun inviteCandidates(candidates: List<Candidate>, recruitmentId: Long): Recruitment {
         LOGGER.info("Inviting candidates")
         val recruitment = recruitmentService.getRecruitment(recruitmentId)!!;
         candidates.forEach { candidate ->
             try {
                 recruitment.candidates.add(candidate);
-                val form = formTemplateService.cloneForm(recruitment.form!!)
+//                val form = formTemplateService.cloneForm(recruitment.form!!)
                 val urlquery = NanoIdUtils.randomNanoId();
                 val message: String = mailContentBuilder.build(recruitment.formMail!!, "/form/?id=$urlquery")
                 emailSender.sendmail(candidate.email, "Invite", message)
-                var invitation = FormInvitation(urlquery, candidate, form)
+                var invitation = FormInvitation(urlquery, candidate, recruitment.id!!)
                 recruitment.invitations.add(invitation)
                 recruitmentService.postRecruitment(recruitment)
                 LOGGER.error("Mail enviado")
@@ -48,9 +49,10 @@ class SummonService {
                 LOGGER.error("No fue posible enviar el mail ${candidate.email}")
             }
         }
+        return recruitment
     }
 
-    fun summonCandidates(candidates: List<Candidate>, recruitmentId: Long) {
+    fun summonCandidates(candidates: List<Candidate>, recruitmentId: Long): Recruitment {
         LOGGER.info("Summoninig candidates")
         val recruitment = recruitmentService.getRecruitment(recruitmentId)!!;
         candidates.forEach { candidate ->
@@ -65,6 +67,7 @@ class SummonService {
                 LOGGER.error("No fue posible enviar el mail ${candidate.email}")
             }
         }
+        return recruitment
     }
 
     companion object {

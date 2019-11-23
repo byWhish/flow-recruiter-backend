@@ -4,9 +4,10 @@ import javax.persistence.*
 
 @Entity
 data class FormQuestionResponse(
-        @OneToOne
-        val question: FormQuestion,
-        val response: String
+        val question: String,
+        val response: String,
+        val parentId: Long,
+        val recruitmentId: Long
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
